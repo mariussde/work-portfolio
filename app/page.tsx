@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import DynamicFrameLayout from "../components/DynamicFrameLayout"
 import { inter } from "../lib/fonts"
 import { Playfair_Display } from "next/font/google"
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun, Linkedin } from "lucide-react"
 import { Button } from "@/components/button"
 import { useTheme } from "@/hooks/use-theme"
 import { cn } from "@/lib/utils"
@@ -20,13 +20,13 @@ const SKILLS = {
   Backend: "Java | Node.js | Python | C++ | C# | FastAPI | Spring Boot | PostgreSQL | MySQL | MongoDB | GraphQL | Prisma",
   "Machine Learning": "PyTorch | Keras | Hugging Face | Scikit-learn | Neural Networks | NLP",
   Other: "AWS | EC2 | S3 | RDS | Lambda | Kubernetes | Full-Stack | Git | RESTful | CI/CD | ORM",
-  Languages: "Spanish, English, Russian, Catalan, Moldovan",
+  Languages: "Spanish, English, Russian, Catalan, Moldovan.<br />Currently learning German and French.",
 } as const
 
 const SkillSection = ({ title, content }: { title: string; content: string }) => (
   <div>
     <h3 className="font-bold mb-2">{title}</h3>
-    <p>{content}</p>
+    <p dangerouslySetInnerHTML={{ __html: content }} />
   </div>
 )
 
@@ -75,7 +75,7 @@ export default function Home() {
       </div>
       <div className="w-full h-full flex flex-col md:flex-row items-start gap-8 md:gap-24 lg:gap-32 xl:gap-48 2xl:gap-48">
         {/* Left Content */}
-        <div className="w-full md:w-[300px] lg:w-[300px] xl:w-[300px] 2xl:w-[300px] flex-shrink-0 flex flex-col justify-between h-full">
+        <div className="w-full md:w-[350px] lg:w-[350px] xl:w-[350px] 2xl:w-[350px] flex-shrink-0 flex flex-col justify-between h-full">
           <div className="flex flex-col gap-6">
             <h1
               className="text-4xl md:text-6xl tracking-tighter leading-[130%]"
@@ -95,7 +95,7 @@ export default function Home() {
             <div
               className={cn(
                 inter.className,
-                "flex flex-col gap-4 text-sm font-light max-w-[300px]"
+                "flex flex-col gap-4 text-sm font-light w-full"
               )}
               style={{
                 fontSize: `${0.875 * textSize}rem`,
@@ -124,7 +124,7 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="default"
-                  onClick={() => window.open("https://read.cv/mariuslefter", "_blank")}
+                  onClick={() => window.open("/cv_english.pdf", "_blank")}
                   className={cn(
                     "shadow-none transition-all duration-300",
                     isDark
@@ -137,7 +137,7 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="default"
-                  onClick={() => window.open("https://github.com/mariuslefter", "_blank")}
+                  onClick={() => window.open("https://github.com/mariussde?tab=repositories", "_blank")}
                   className={cn(
                     "shadow-none transition-all duration-300",
                     isDark
@@ -146,6 +146,19 @@ export default function Home() {
                   )}
                 >
                   GitHub
+                </Button>
+                <Button
+                  variant="outline"
+                  size="default"
+                  onClick={() => window.open("https://www.linkedin.com/in/marius-lefter-lefter-17948b2a2/", "_blank")}
+                  className={cn(
+                    "shadow-none transition-all duration-300",
+                    isDark
+                      ? "bg-[#faf0e6] text-[#2C231E] border-[#2C231E]/20 hover:border-[#2C231E]/40"
+                      : "bg-[#141414] text-white/95 border-white/20 hover:border-white/40"
+                  )}
+                >
+                  <Linkedin size={16} />
                 </Button>
               </div>
               <div
