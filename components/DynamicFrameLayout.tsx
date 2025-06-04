@@ -45,7 +45,7 @@ const isPositionOccupied = (frames: Frame[], x: number, y: number, w: number, h:
 const initialFrames: Frame[] = [
   {
     id: 1,
-    video: "https://aarqynohzxfrbmfa.public.blob.vercel-storage.com/coca-cola-4k-ogSVl9krnGoXwIDK8fxjEoAGLVw91W.mp4",
+    video: "cocacola.mp4",
     defaultPos: { x: 0, y: 0, w: 8, h: 8 }, // Large square (2x2)
     projectInfo: {
       tags: ["Next.js", "TypeScript", "TailwindCSS"],
@@ -55,7 +55,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 2,
-    video: "https://aarqynohzxfrbmfa.public.blob.vercel-storage.com/coca-cola-720p-4Hdkynjv2KNgjYl8JZUnroAIsYvuQn.mp4",
+    video: "oreo.mp4",
     defaultPos: { x: 8, y: 0, w: 4, h: 8 }, // Vertical (1x2)
     projectInfo: {
       tags: ["Three.js", "WebGL", "React"],
@@ -65,7 +65,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 3,
-    video: "https://aarqynohzxfrbmfa.public.blob.vercel-storage.com/fanta-4k-8XwpzIi2DPz3qmQRlU6W6w0qO6VA1P.mp4",
+    video: "fanta.mp4",
     defaultPos: { x: 0, y: 8, w: 4, h: 4 }, // Regular (1x1)
     projectInfo: {
       tags: ["Framer Motion", "GSAP", "React"],
@@ -75,7 +75,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 4,
-    video: "https://aarqynohzxfrbmfa.public.blob.vercel-storage.com/coca-cola-4k-ogSVl9krnGoXwIDK8fxjEoAGLVw91W.mp4",
+    video: "oreo.mp4",
     defaultPos: { x: 4, y: 8, w: 4, h: 4 }, // Regular (1x1)
     projectInfo: {
       tags: ["Next.js", "Supabase", "TailwindCSS"],
@@ -85,7 +85,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 5,
-    video: "https://aarqynohzxfrbmfa.public.blob.vercel-storage.com/fanta-4k-8XwpzIi2DPz3qmQRlU6W6w0qO6VA1P.mp4",
+    video: "fanta.mp4",
     defaultPos: { x: 8, y: 8, w: 4, h: 4 }, // Regular (1x1)
     projectInfo: {
       tags: ["Figma", "After Effects", "Illustrator"],
