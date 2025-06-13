@@ -11,7 +11,8 @@ interface BentoGridItem {
   video: string
   defaultPos: { x: number; y: number; w: number; h: number }
   projectInfo: {
-    tags: string[]
+    title: string
+    slug: string
     siteUrl?: string
     githubUrl?: string
   }
@@ -29,9 +30,10 @@ const initialFrames: BentoGridItem[] = [
   {
     id: 1,
     video: "cocacola.mp4",
-    defaultPos: { x: 0, y: 0, w: 8, h: 8 }, // Large square (2x2)
+    defaultPos: { x: 0, y: 0, w: 8, h: 8 },
     projectInfo: {
-      tags: ["Next.js", "TypeScript", "TailwindCSS"],
+      title: "Coca-Cola Experience",
+      slug: "coca-cola-experience",
       siteUrl: "https://example.com",
       githubUrl: "https://github.com/example"
     }
@@ -39,9 +41,10 @@ const initialFrames: BentoGridItem[] = [
   {
     id: 2,
     video: "oreo.mp4",
-    defaultPos: { x: 8, y: 0, w: 4, h: 8 }, // Vertical (1x2)
+    defaultPos: { x: 8, y: 0, w: 4, h: 8 },
     projectInfo: {
-      tags: ["Three.js", "WebGL", "React"],
+      title: "Oreo Interactive",
+      slug: "oreo-interactive",
       siteUrl: "https://example.com",
       githubUrl: "https://github.com/example"
     }
@@ -49,9 +52,10 @@ const initialFrames: BentoGridItem[] = [
   {
     id: 3,
     video: "fanta.mp4",
-    defaultPos: { x: 0, y: 8, w: 4, h: 4 }, // Regular (1x1)
+    defaultPos: { x: 0, y: 8, w: 4, h: 4 },
     projectInfo: {
-      tags: ["Framer Motion", "GSAP", "React"],
+      title: "Fanta Animation",
+      slug: "fanta-animation",
       siteUrl: "https://example.com",
       githubUrl: "https://github.com/example"
     }
@@ -59,9 +63,10 @@ const initialFrames: BentoGridItem[] = [
   {
     id: 4,
     video: "oreo.mp4",
-    defaultPos: { x: 4, y: 8, w: 4, h: 4 }, // Regular (1x1)
+    defaultPos: { x: 4, y: 8, w: 4, h: 4 },
     projectInfo: {
-      tags: ["Next.js", "Supabase", "TailwindCSS"],
+      title: "Oreo Web App",
+      slug: "oreo-web-app",
       siteUrl: "https://example.com",
       githubUrl: "https://github.com/example"
     }
@@ -69,9 +74,10 @@ const initialFrames: BentoGridItem[] = [
   {
     id: 5,
     video: "fanta.mp4",
-    defaultPos: { x: 8, y: 8, w: 4, h: 4 }, // Regular (1x1)
+    defaultPos: { x: 8, y: 8, w: 4, h: 4 },
     projectInfo: {
-      tags: ["Figma", "After Effects", "Illustrator"],
+      title: "Fanta Design",
+      slug: "fanta-design",
       siteUrl: "https://example.com",
       githubUrl: "https://github.com/example"
     }
