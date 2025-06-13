@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import DynamicFrameLayout from "../components/DynamicFrameLayout"
+import BentoGrid from "@/components/BentoGrid"
 import { inter } from "../lib/fonts"
 import { Playfair_Display } from "next/font/google"
 import { useTheme } from "@/hooks/use-theme"
@@ -52,7 +52,7 @@ export default function Home() {
 
         {/* Right Content */}
         <div className="w-full md:w-[calc(100%-348px)] lg:w-[calc(100%-372px)] xl:w-[calc(100%-396px)] 2xl:w-[calc(100%-396px)] h-[60vh] md:h-[80vh]">
-          <DynamicFrameLayout theme={theme} />
+          <BentoGrid theme={theme} />
         </div>
       </div>
     </div>

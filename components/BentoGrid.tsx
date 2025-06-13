@@ -2,11 +2,11 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { FrameComponent } from "./FrameComponent"
+import { ProjectCard } from "./ProjectCard"
 import { type Theme } from "@/lib/theme"
 import { useIsMobile } from "@/hooks/use-mobile"
 
-interface Frame {
+interface BentoGridItem {
   id: number
   video: string
   defaultPos: { x: number; y: number; w: number; h: number }
@@ -17,7 +17,7 @@ interface Frame {
   }
 }
 
-interface DynamicFrameLayoutProps {
+interface BentoGridProps {
   theme: Theme
 }
 
@@ -25,24 +25,7 @@ const GRID_SIZE = 12
 const GAP_SIZE = 8
 const DEFAULT_FRAME_SIZE = 4
 
-// Helper function to check if a position is occupied
-const isPositionOccupied = (frames: Frame[], x: number, y: number, w: number, h: number): boolean => {
-  return frames.some(frame => {
-    const frameX = frame.defaultPos.x
-    const frameY = frame.defaultPos.y
-    const frameW = frame.defaultPos.w
-    const frameH = frame.defaultPos.h
-
-    return (
-      x < frameX + frameW &&
-      x + w > frameX &&
-      y < frameY + frameH &&
-      y + h > frameY
-    )
-  })
-}
-
-const initialFrames: Frame[] = [
+const initialFrames: BentoGridItem[] = [
   {
     id: 1,
     video: "cocacola.mp4",
@@ -101,14 +84,13 @@ const getTransformOrigin = (x: number, y: number, w: number, h: number): string 
   return `${vertical} ${horizontal}`
 }
 
-export default function DynamicFrameLayout({ theme }: DynamicFrameLayoutProps) {
-  const [frames] = useState<Frame[]>(initialFrames)
+export default function BentoGrid({ theme }: BentoGridProps) {
   const [hovered, setHovered] = useState<{ row: number; col: number } | null>(null)
   const autoplayMode = "all"
   const isMobile = useIsMobile()
 
   // Adjust frame positions for mobile
-  const adjustedFrames = frames.map(frame => {
+  const adjustedFrames = initialFrames.map(frame => {
     if (isMobile) {
       // On mobile, make all frames full width and adjust heights
       if (frame.defaultPos.w === 8 && frame.defaultPos.h === 8) {
@@ -199,7 +181,7 @@ export default function DynamicFrameLayout({ theme }: DynamicFrameLayoutProps) {
               onMouseEnter={() => setHovered({ row, col })}
               onMouseLeave={() => setHovered(null)}
             >
-              <FrameComponent
+              <ProjectCard
                 video={frame.video}
                 width="100%"
                 height="100%"
@@ -217,4 +199,4 @@ export default function DynamicFrameLayout({ theme }: DynamicFrameLayoutProps) {
       </div>
     </div>
   )
-}
+} 

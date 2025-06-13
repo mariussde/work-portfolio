@@ -11,7 +11,7 @@ type ProjectInfo = {
   githubUrl?: string
 }
 
-interface FrameComponentProps {
+interface ProjectCardProps {
   video: string
   width: number | string
   height: number | string
@@ -61,7 +61,7 @@ const ProjectLinks = ({ siteUrl, githubUrl }: Pick<ProjectInfo, "siteUrl" | "git
   </div>
 )
 
-export function FrameComponent({ 
+export function ProjectCard({ 
   video, 
   width, 
   height, 
@@ -69,7 +69,7 @@ export function FrameComponent({
   autoplayMode, 
   isHovered,
   projectInfo 
-}: FrameComponentProps) {
+}: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -144,12 +144,6 @@ export function FrameComponent({
               ref={videoRef}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onEnded={() => {
-                if (videoRef.current) {
-                  videoRef.current.currentTime = 0
-                  videoRef.current.play().catch(console.error)
-                }
-              }}
             />
             {isHovered && projectInfo && (
               <div className="absolute bottom-0 right-0 p-4 w-full bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
@@ -164,4 +158,4 @@ export function FrameComponent({
       </div>
     </div>
   )
-}
+} 
