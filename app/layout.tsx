@@ -1,7 +1,7 @@
 import "./globals.css"
 import { ppEditorialNewUltralightItalic, inter } from "../lib/fonts"
 import type React from "react"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/layout/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
