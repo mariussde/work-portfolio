@@ -15,13 +15,6 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 })
 
-const SKILLS = {
-  Frontend: "React | Angular | Next.js | CSS | HTML | TypeScript | JavaScript | Jest | Cypress",
-  Backend: "Java | Node.js | Python | C++ | C# | FastAPI | Spring Boot | PostgreSQL | MySQL | MongoDB | GraphQL | Prisma",
-  "Machine Learning": "PyTorch | Keras | Hugging Face | Scikit-learn | Neural Networks | NLP",
-  DevOps: "AWS | EC2 | S3 | RDS | Lambda | Kubernetes | Full-Stack | Git | RESTful | CI/CD | ORM",
-  Languages: "Spanish, English, Russian, Catalan, Moldovan.<br />Currently learning German and French.",
-} as const
 
 export default function Home() {
   const [headerSize] = useState(1.2)
