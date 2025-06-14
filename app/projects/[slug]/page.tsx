@@ -3,14 +3,16 @@
 import { useState, useEffect } from "react"
 import { useTheme } from "@/hooks/use-theme"
 import { SharedLayout } from "@/components/layout/SharedLayout"
+import { use } from "react"
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = use(params)
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -27,7 +29,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <SharedLayout>
       <div className="w-full md:w-[calc(100%-348px)] lg:w-[calc(100%-372px)] xl:w-[calc(100%-396px)] 2xl:w-[calc(100%-396px)] h-[60vh] md:h-[80vh]">
         <article className="prose prose-lg dark:prose-invert max-w-none">
-          <h1>Project: {params.slug}</h1>
+          <h1>Project: {slug}</h1>
           {/* Add your project content here */}
         </article>
       </div>

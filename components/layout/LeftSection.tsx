@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { inter } from "@/lib/fonts"
 import { Linkedin } from "lucide-react"
 import { Playfair_Display } from "next/font/google"
+import { useRouter } from "next/navigation"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ interface LeftSectionProps {
 
 export const LeftSection = ({ headerSize, textSize, colors, isDark }: LeftSectionProps) => {
   const [isCopied, setIsCopied] = useState(false)
+  const router = useRouter()
 
   const handleCopyEmail = async () => {
     try {
@@ -54,7 +56,7 @@ export const LeftSection = ({ headerSize, textSize, colors, isDark }: LeftSectio
     <div className="w-full md:w-[350px] lg:w-[350px] xl:w-[350px] 2xl:w-[350px] flex-shrink-0 flex flex-col justify-between h-full">
       <div className="flex flex-col gap-6">
         <h1
-          className="text-4xl md:text-6xl tracking-tighter leading-[130%]"
+          className="text-4xl md:text-6xl tracking-tighter leading-[130%] cursor-pointer hover:opacity-80 transition-opacity"
           style={{
             fontSize: `${4 * headerSize}rem`,
             color: colors.textStrong,
@@ -62,6 +64,15 @@ export const LeftSection = ({ headerSize, textSize, colors, isDark }: LeftSectio
             fontWeight: 400,
             letterSpacing: "-0.02em",
           }}
+          onClick={() => router.push("/")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              router.push("/")
+            }
+          }}
+          role="link"
+          tabIndex={0}
+          aria-label="Go to home page"
         >
           Marius
           <br />

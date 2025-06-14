@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "../ui/button"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 type ProjectInfo = {
   title: string
@@ -14,12 +15,13 @@ type ProjectInfo = {
 
 interface ProjectCardProps {
   video: string
-  width: number | string
-  height: number | string
+  width: string
+  height: string
   className?: string
   autoplayMode: "all" | "hover"
   isHovered: boolean
-  projectInfo?: ProjectInfo
+  isExpanded?: boolean
+  projectInfo: ProjectInfo
 }
 
 const ProjectTags = ({ tags }: { tags: string[] }) => (
@@ -35,38 +37,45 @@ const ProjectTags = ({ tags }: { tags: string[] }) => (
   </div>
 )
 
-const ProjectLinks = ({ siteUrl, githubUrl }: Pick<ProjectInfo, "siteUrl" | "githubUrl">) => (
-  <div className="flex gap-2 shrink-0">
-    {siteUrl && (
-      <Button
-        variant="outline"
-        size="sm"
-        className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
-        onClick={(e) => {
-          e.stopPropagation()
-          window.open(siteUrl, "_blank")
-        }}
-      >
-        <ExternalLink className="w-4 h-4 mr-2" />
-        View Site
-      </Button>
-    )}
-    {githubUrl && (
-      <Button
-        variant="outline"
-        size="sm"
-        className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
-        onClick={(e) => {
-          e.stopPropagation()
-          window.open(githubUrl, "_blank")
-        }}
-      >
-        <Github className="w-4 h-4 mr-2" />
-        GitHub
-      </Button>
-    )}
-  </div>
-)
+const ProjectLinks = ({ siteUrl, githubUrl }: Pick<ProjectInfo, "siteUrl" | "githubUrl">) => {
+  const isMobile = useIsMobile()
+  
+  return (
+    <div className={cn(
+      "flex gap-2 shrink-0",
+      isMobile && "flex-col"
+    )}>
+      {siteUrl && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
+          onClick={(e) => {
+            e.stopPropagation()
+            window.open(siteUrl, "_blank")
+          }}
+        >
+          <ExternalLink className="w-4 h-4 mr-2" />
+          View Site
+        </Button>
+      )}
+      {githubUrl && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
+          onClick={(e) => {
+            e.stopPropagation()
+            window.open(githubUrl, "_blank")
+          }}
+        >
+          <Github className="w-4 h-4 mr-2" />
+          GitHub
+        </Button>
+      )}
+    </div>
+  )
+}
 
 export function ProjectCard({ 
   video, 
@@ -75,9 +84,11 @@ export function ProjectCard({
   className = "", 
   autoplayMode, 
   isHovered,
+  isExpanded = false,
   projectInfo 
 }: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!videoRef.current) return
@@ -130,7 +141,14 @@ export function ProjectCard({
   }
 
   const handleClick = () => {
-    if (projectInfo?.slug) {
+    if (isMobile) {
+      if (!isExpanded) {
+        // The expanded state is now managed by the parent component
+        return
+      } else if (projectInfo?.slug) {
+        window.location.href = `/projects/${projectInfo.slug}`
+      }
+    } else if (projectInfo?.slug) {
       window.location.href = `/projects/${projectInfo.slug}`
     }
   }
@@ -141,6 +159,7 @@ export function ProjectCard({
         "relative cursor-pointer group",
         "transition-all duration-300 ease-in-out",
         "hover:shadow-2xl",
+        isMobile && isExpanded && "ring-2 ring-white/30",
         className
       )}
       style={{
@@ -164,25 +183,56 @@ export function ProjectCard({
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             />
-            {isHovered && projectInfo && (
+            {(isHovered || (isMobile && isExpanded)) && projectInfo && (
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent rounded-lg">
                 <div className="absolute bottom-0 right-0 p-4 w-full">
-                  <div className="flex flex-col gap-4">
-                    <h3 className="text-lg font-semibold text-white">{projectInfo.title}</h3>
-                    <div className="flex items-center justify-between">
+                  <div className="flex justify-between items-start">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-lg font-semibold text-white">{projectInfo.title}</h3>
                       <Button
                         variant="ghost"
                         size="sm"
                         className="text-white/90 hover:text-white hover:bg-white/20 group/button"
                         onClick={(e) => {
                           e.stopPropagation()
-                          handleClick()
+                          if (projectInfo?.slug) {
+                            window.location.href = `/projects/${projectInfo.slug}`
+                          }
                         }}
                       >
                         View Case Study
                         <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/button:translate-x-1" />
                       </Button>
-                      <ProjectLinks siteUrl={projectInfo.siteUrl} githubUrl={projectInfo.githubUrl} />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      {projectInfo.siteUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(projectInfo.siteUrl, "_blank")
+                          }}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View Site
+                        </Button>
+                      )}
+                      {projectInfo.githubUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="bg-white/10 text-white/90 border-white/20 hover:bg-white/20 hover:border-white/30 hover:text-white flex-shrink-0"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(projectInfo.githubUrl, "_blank")
+                          }}
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          GitHub
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>
