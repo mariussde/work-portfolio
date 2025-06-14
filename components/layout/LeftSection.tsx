@@ -5,6 +5,7 @@ import { inter } from "@/lib/fonts"
 import { Linkedin } from "lucide-react"
 import { Playfair_Display } from "next/font/google"
 import { useRouter } from "next/navigation"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ interface LeftSectionProps {
 export const LeftSection = ({ headerSize, textSize, colors, isDark }: LeftSectionProps) => {
   const [isCopied, setIsCopied] = useState(false)
   const router = useRouter()
+  const isMobile = useIsMobile()
 
   const handleCopyEmail = async () => {
     try {
@@ -152,11 +154,13 @@ export const LeftSection = ({ headerSize, textSize, colors, isDark }: LeftSectio
             className="h-px w-full"
             style={{ backgroundColor: colors.border }}
           />
-          <div className="space-y-4">
-            {Object.entries(SKILLS).map(([title, content]) => (
-              <SkillSection key={title} title={title} content={content} />
-            ))}
-          </div>
+          {!isMobile && (
+            <div className="space-y-4">
+              {Object.entries(SKILLS).map(([title, content]) => (
+                <SkillSection key={title} title={title} content={content} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
